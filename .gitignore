@@ -1,0 +1,59 @@
+### 커밋 제외 — 개발 기간 / 일정 / 진행 상황 ###
+docs/.internal/
+
+### Secrets / AWS ###
+*.pem
+*.key
+*.p12
+*.jks
+aws-credentials
+
+### Environment variables ###
+.env
+.env.*
+!.env.example
+
+### Local application configuration ###
+application-local.yml
+application-local.yaml
+application-local.properties
+
+### Gradle / Build ###
+.gradle/
+build/
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### IntelliJ IDEA ###
+.idea/
+*.iml
+*.ipr
+
+### Eclipse / STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+!scripts/bin/
+
+### VS Code ###
+.vscode/
+
+### Package Files ###
+*.war
+*.zip
+*.tar.gz
+
+### JVM crash logs ###
+hs_err_pid*
+replay_pid*
+
+### OS generated files ###
+.DS_Store
