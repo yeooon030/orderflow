@@ -501,11 +501,26 @@ Index 추가 및 변경 역시 실제 Query와 Execution Plan을 분석한 후 M
 
 테이블명과 컬럼명은 snake_case를 사용한다.
 
-`order`는 SQL 예약어이므로 주문 테이블명은 `orders`를 사용한다.
+테이블명은 단수형을 기본으로 하고, SQL 예약어와 충돌하는 경우에만 복수형을 사용한다.
+
+`order`와 `user`는 PostgreSQL 예약어이므로
+주문 테이블명은 `orders`, 사용자 테이블명은 `users`를 사용한다.
+
+Entity 이름은 도메인 모델 기준(`Order`, `User`)을 유지하고
+테이블 매핑으로 위 이름을 지정한다.
 
 ### PK 생성 전략
 
 PK는 Sequence 전략을 사용한다.
+
+Sequence는 테이블별로 `<테이블명>_seq`로 생성한다.
+
+Sequence의 `INCREMENT BY`와 JPA의 `allocationSize`는 반드시 동일한 값을 사용한다.
+
+값이 다르면 애플리케이션이 발급한 ID와 Sequence의 실제 값이 어긋나 PK 충돌이 발생하며,
+`ddl-auto: validate`는 이를 검증하지 않는다.
+
+현재 값은 `50`을 사용한다.
 
 ### Stock PK
 
