@@ -87,8 +87,8 @@ OrderFlow는 주문과 재고를 관리하는 Spring Boot 기반 백엔드 프�
 
 ### Database
 
-- PostgreSQL
-- Redis
+- PostgreSQL 17
+- Redis 7.4
 - Flyway
 
 ### Test
@@ -119,6 +119,7 @@ orderflow/
 ├── CLAUDE.md
 ├── README.md
 ├── .gitignore
+├── docker-compose.yml
 ├── docs/
 │   ├── PROJECT.md
 │   ├── BACKEND.md

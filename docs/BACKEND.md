@@ -511,3 +511,39 @@ PK는 Sequence 전략을 사용한다.
 
 Stock은 별도의 id를 두지 않고 productId를 PK이자 Product FK로 직접 사용하여
 Product와 Stock의 1:1 관계를 스키마 수준에서 강제한다.
+
+## 19. 로컬 개발 환경
+
+로컬 개발 환경은 Docker Compose로 구성한다.
+
+Compose 파일은 프로젝트 루트에 `docker-compose.yml`로 둔다.
+
+### 버전 및 포트
+
+| 구성 | 버전 | 이미지 | 포트 |
+|---|---|---|---|
+| PostgreSQL | 17 | `postgres:17-alpine` | 5432 |
+| Redis | 7.4 | `redis:7.4-alpine` | 6379 |
+| Application | — | — | 8080 |
+
+### 접속 정보
+
+로컬 전용 값이며 배포 환경에서는 환경변수를 사용한다.
+
+- Database: `orderflow`
+- User / Password: `orderflow` / `orderflow`
+
+### 버전 선택 기준
+
+로컬, Testcontainers, 배포 환경의 PostgreSQL 버전을 일치시킨다.
+
+버전이 다르면 Execution Plan 분석 결과와 Migration 기준이 달라질 수 있다.
+
+AWS RDS 및 ElastiCache가 제공하는 버전은 배포 단계에서 확인한 뒤
+위 버전과 다를 경우 로컬 버전을 맞춘다.
+
+### 스키마 관리
+
+Hibernate `ddl-auto`는 `validate`를 사용한다.
+
+스키마 생성과 변경은 Flyway Migration으로만 수행한다.

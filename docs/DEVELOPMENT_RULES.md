@@ -60,8 +60,8 @@ Backend
 - Gradle (Groovy DSL)
 
 Database
-- PostgreSQL
-- Redis
+- PostgreSQL 17
+- Redis 7.4
 - Flyway
 
 Test
