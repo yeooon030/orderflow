@@ -517,10 +517,13 @@ Sequence는 테이블별로 `<테이블명>_seq`로 생성한다.
 
 Sequence의 `INCREMENT BY`와 JPA의 `allocationSize`는 반드시 동일한 값을 사용한다.
 
-값이 다르면 애플리케이션이 발급한 ID와 Sequence의 실제 값이 어긋나 PK 충돌이 발생하며,
-`ddl-auto: validate`는 이를 검증하지 않는다.
+값이 다르면 Hibernate가 기동 시점에 예외를 던지고 애플리케이션이 뜨지 않는다.
+따라서 스키마와 Entity 중 한쪽만 변경해서는 안 된다.
 
-현재 값은 `50`을 사용한다.
+현재 값은 `50`을 사용한다. 50인 이유와 측정 결과는
+`docs/decisions/sequence-allocation-size.md`에 기록한다.
+
+pooled 할당을 사용하므로 PK는 연속하지 않는다. ID를 순번이나 건수로 해석하지 않는다.
 
 ### Stock PK
 
