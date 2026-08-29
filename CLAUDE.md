@@ -1,17 +1,26 @@
 ## 0. 최우선 지시 — 작업 시작 전 필독
 
-이 파일의 다른 내용을 적용하기 전에 다음 파일들을 먼저 읽는다.
+이 파일의 다른 내용을 적용하기 전에 `docs/.internal/HANDOVER.md`를 읽는다.
 
 ```text
-docs/.internal/HANDOVER.md        # 직전 작업 인수인계 (가장 먼저 읽는다)
-docs/.internal/PROGRESS.md        # 개발 기간 / 일정 / 현재 진행 상황
-docs/.internal/CHECKLIST.md       # 일별 작업 체크리스트
+docs/.internal/HANDOVER.md    # 항상 읽는다. 직전 작업 상태와 다음 할 일
 ```
 
-`docs/.internal/` 경로의 파일들에는 개발 기간, 일정, 현재 진행 상황, 체크리스트가 기록되어 있다.
+나머지 두 파일은 항상 읽지 않는다. 필요할 때만 읽는다.
 
-- 파일이 존재하면 반드시 먼저 읽고, 현재 Day와 Phase를 확인한 뒤 작업을 시작한다.
-- 파일이 존재하지 않으면 일정 제약이 없는 것으로 간주하지 않고, 사용자에게 확인을 요청한다.
+```text
+docs/.internal/PROGRESS.md    # 과거 결정과 그 근거, 누적 기록을 확인할 때
+docs/.internal/CHECKLIST.md   # 항목을 확인하거나 완료 표시할 때. 현재 Day 섹션만 읽는다
+```
+
+세션마다 전체를 읽으면 토큰 소모가 크고, 두 파일은 계속 늘어난다.
+작업을 시작하는 데 필요한 내용은 `HANDOVER.md`에 있어야 한다.
+
+- `HANDOVER.md`를 읽고 현재 Phase를 확인한 뒤 작업을 시작한다.
+- `HANDOVER.md`가 없으면 일정 제약이 없는 것으로 간주하지 않는다.
+  `PROGRESS.md`와 `git log`로 직전 상황을 파악하고 사용자에게 확인을 요청한다.
+- `HANDOVER.md`의 내용이 현재 저장소 상태와 다르면 저장소를 기준으로 하고,
+  차이를 사용자에게 알린다.
 
 `docs/.internal/` 경로는 저장소에 커밋하지 않는다.
 개발 기간, 일정, 진행 상황을 다른 문서나 커밋 대상 파일에 옮겨 적지 않는다.
@@ -22,6 +31,10 @@ docs/.internal/CHECKLIST.md       # 일별 작업 체크리스트
 ## 0-1. 세션 인수인계
 
 `docs/.internal/HANDOVER.md`는 다음 세션이 이어서 작업할 수 있도록 남기는 문서다.
+
+**다음 세션은 이 파일만 읽고 작업을 시작한다.**
+`PROGRESS.md`와 `CHECKLIST.md`는 필요할 때만 읽으므로,
+작업 재개에 필요한 내용이 빠지면 맥락 없이 시작하게 된다.
 
 ### 세션 시작
 
@@ -54,8 +67,19 @@ docs/.internal/CHECKLIST.md       # 일별 작업 체크리스트
 ## 재개 절차
 ```
 
+작성 후 다음을 확인한다. 하나라도 답할 수 없으면 그 내용을 추가한다.
+
+- 지금 어느 Phase이고 다음에 무엇을 하는가
+- 진행을 막는 이슈가 있는가
+- 커밋되지 않은 변경이 있는가. 테스트는 통과 상태인가
+- 다음 작업에서 반드시 지켜야 할 제약이 있는가
+
 `PROGRESS.md`가 누적 기록이라면 `HANDOVER.md`는 현재 시점의 상태다.
 같은 내용을 양쪽에 중복해서 쓰지 않는다.
+
+과거 결정의 근거는 `PROGRESS.md`나 `docs/decisions/`에 두고,
+`HANDOVER.md`에는 다음 작업에 영향을 주는 것만 남긴다.
+이 파일이 계속 커지면 축소한 의미가 없다.
 
 ## 0-2. 브랜치
 
@@ -70,9 +94,9 @@ docs/.internal/CHECKLIST.md       # 일별 작업 체크리스트
 
 이 프로젝트의 요구사항과 개발 기준은 다음 문서를 따른다.
 
-0. docs/.internal/HANDOVER.md — 직전 작업 인수인계 (커밋 제외, 최우선 확인)
-1. docs/.internal/PROGRESS.md — 개발 기간, 일정, 진행 상황 (커밋 제외, 최우선 확인)
-2. docs/.internal/CHECKLIST.md — 일별 작업 체크리스트 (커밋 제외, 최우선 확인)
+0. docs/.internal/HANDOVER.md — 직전 작업 인수인계 (커밋 제외, 항상 읽는다)
+1. docs/.internal/PROGRESS.md — 개발 기간, 일정, 누적 기록 (커밋 제외, 필요할 때만)
+2. docs/.internal/CHECKLIST.md — 일별 작업 체크리스트 (커밋 제외, 필요할 때만)
 3. docs/PROJECT.md — 프로젝트 목표, 범위
 4. docs/BACKEND.md — 백엔드 기능 및 기술 명세
 5. docs/DEVELOPMENT_RULES.md — 개발 및 테스트 규칙
