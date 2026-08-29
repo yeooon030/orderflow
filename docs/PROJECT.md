@@ -126,6 +126,7 @@ orderflow/
 │   ├── DEVELOPMENT_RULES.md
 │   ├── decisions/
 │   └── .internal/           # 커밋 제외
+│       ├── HANDOVER.md      # 직전 작업 인수인계 (세션 종료 시 갱신)
 │       ├── PROGRESS.md      # 개발 기간 / 일정 / 진행 상황
 │       └── CHECKLIST.md     # 일별 작업 체크리스트
 ├── backend/
