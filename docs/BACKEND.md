@@ -140,7 +140,9 @@ HTTP Status
 생성 성공	201
 잘못된 요청	400
 리소스 없음	404
+지원하지 않는 메서드	405
 재고 부족 / 동시성 충돌	409
+지원하지 않는 Content-Type	415
 서버 오류	500
 
 ## 4. Product API
@@ -454,7 +456,9 @@ Index는 실제 쿼리 패턴과 Execution Plan을 분석한 후 추가한다.
 
 전역 예외 처리를 사용한다.
 
-대표적인 Error Code:
+Error Code는 도메인 오류와 요청 형식 오류로 나눈다.
+
+도메인 오류:
 
 USER_NOT_FOUND
 PRODUCT_NOT_FOUND
@@ -462,7 +466,29 @@ ORDER_NOT_FOUND
 INVALID_ORDER_QUANTITY
 STOCK_INSUFFICIENT
 
+요청 형식 오류:
+
+INVALID_REQUEST
+ENDPOINT_NOT_FOUND
+METHOD_NOT_ALLOWED
+UNSUPPORTED_MEDIA_TYPE
+
+값이 오지 않은 것과 값이 잘못된 것을 구분한다.
+
+userId나 productId가 요청에 없는 경우는 `INVALID_REQUEST`를 사용한다.
+`*_NOT_FOUND`는 실제로 존재하지 않는 id를 보낸 경우에만 사용한다.
+
+`INVALID_ORDER_QUANTITY`는 수량 값 자체가 잘못된 경우에만 사용한다.
+주문 항목이 비어 있는 경우는 수량 문제가 아니므로 `INVALID_REQUEST`를 사용한다.
+
 예외 응답은 공통 Error Response 형식을 사용한다.
+
+전역 예외 처리는 Spring MVC의 표준 예외를 넘겨받아야 한다.
+
+`@ExceptionHandler(Exception.class)`만 두면 파라미터 누락, 본문 파싱 실패, 타입 불일치 등
+클라이언트 입력 오류가 Spring의 변환을 거치기 전에 매칭되어 전부 500으로 응답된다.
+
+클라이언트 입력 오류에는 ERROR 로그를 남기지 않는다.
 
 ## 16. Batch / Performance / Concurrency 원칙
 Batch
